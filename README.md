@@ -39,7 +39,7 @@ This is a simple tool to delete all your posts from [bsky](https://www.bsky.io).
 
 - 🕵️‍♂️ Lastly: Be safe and paranoid and delete your app password.
 
-### 📣 Feedback & Support :
+### 📣 Feedback & Support
 
 Have feedback or issues? Let us know!
 
