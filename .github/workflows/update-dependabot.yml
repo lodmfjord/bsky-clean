@@ -16,6 +16,11 @@ jobs:
 
       - name: Install dependencies
         run: bun install
+      - name: Debug Git Status
+        run: git status
+
+      - name: Debug Git Diff
+        run: git diff
 
       - name: Check for changes in bun.lockdb
         id: check-changes
