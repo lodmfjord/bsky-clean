@@ -1,0 +1,35 @@
+name: Dependabot Workflow
+
+on:
+  push:
+    branches:
+      - 'dependabot/npm_and_yarn/**'
+
+jobs:
+  check-dependabot-changes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.ref }}
+      - uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: bun install
+    
+      - name: Check for changes in bun.lockdb
+        id: check-changes
+        run: echo "lockbChanged=$(git diff --name-only | grep -q 'bun.lockb' && echo true || echo false)" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Commit and push if bun.lockdb changed
+        if: env.lockbChanged == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add bun.lockb
+          git commit -m "chore: update lock file"
+          git push
