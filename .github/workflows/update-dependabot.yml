@@ -22,11 +22,18 @@ jobs:
         run: echo "lockbChanged=$(git diff --name-only | grep -q 'bun.lockb' && echo true || echo false)" >> $GITHUB_ENV
         shell: bash
 
+      - name: Extract branch name
+        if: env.lockbChanged == 'true'
+        run: echo "CURRENT_BRANCH=$(echo $GITHUB_REF | cut -d '/' -f 3)" >> $GITHUB_ENV
+
+
       - name: Commit and push if bun.lockdb changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: env.lockbChanged == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add bun.lockb
           git commit -m "chore: update lock file"
-          git push
+          git push origin $CURRENT_BRANCH
