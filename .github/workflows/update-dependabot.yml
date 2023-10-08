@@ -20,8 +20,11 @@ jobs:
       - name: Check for changes in bun.lockdb
         id: check-changes
         run: |
-          git diff --exit-code --name-only HEAD~1 HEAD | grep -q "bun.lockdb" && echo "lockdbChanged=true" || echo "lockdbChanged=false"
-          echo "lockdbChanged=${lockdbChanged}" >> $GITHUB_ENV
+          if git diff --name-only | grep -q "bun.lockdb"; then
+            echo "lockdbChanged=true" >> $GITHUB_ENV
+          else
+            echo "lockdbChanged=false" >> $GITHUB_ENV
+          fi
 
       - name: Commit and push if bun.lockdb changed
         if: env.lockdbChanged == 'true'
