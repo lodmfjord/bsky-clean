@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@atproto/api": "0.6.12",
-    "typescript": "5.2.2"
+    "typescript": "5.3.2"
   },
   "devDependencies": {
     "@types/node": "20.6.0",
