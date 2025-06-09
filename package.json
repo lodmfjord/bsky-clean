@@ -8,7 +8,7 @@
     "start": "bun src/index.ts"
   },
   "dependencies": {
-    "@atproto/api": "0.8.0",
+    "@atproto/api": "0.15.14",
     "typescript": "5.2.2"
   },
   "devDependencies": {
